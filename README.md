@@ -112,3 +112,6 @@ This project is open source and available under the MIT License.
 ---
 
 Made with ❤️ and code
+
+---
+&copy; 2026 Faxtifar. All rights reserved.
