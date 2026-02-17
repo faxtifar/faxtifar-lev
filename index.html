@@ -51,6 +51,163 @@
             }
         }
 
+        /* Burger Menu */
+        .burger-menu {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .burger-line {
+            width: 30px;
+            height: 3px;
+            background: #60a5fa;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98));
+            border-left: 2px solid rgba(96, 165, 250, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 150;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #60a5fa;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .menu-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .menu-links a:hover {
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+            transform: translateX(5px);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-title {
+            color: #60a5fa;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #e2e8f0;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .ai-send-btn {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+        }
+
+        .ai-response {
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 3px solid #60a5fa;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
         /* Content wrapper */
         .content {
             position: relative;
@@ -65,15 +222,45 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            padding: 1rem 2rem;
         }
 
-        nav a {
-            transition: all 0.3s ease;
+        .nav-container {
+            max-width: 6xl;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav a:hover {
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
             color: #60a5fa;
-            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
         }
 
         /* Hero Section */
@@ -82,9 +269,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(96,165,250,0.1)" stroke-width="1"/></pattern></defs><rect width="1200" height="600" fill="url(%23grid)" /></svg>');
-            background-size: cover;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
             position: relative;
             overflow: hidden;
         }
@@ -134,10 +319,6 @@
             background: linear-gradient(135deg, #3b82f6, #1e40af);
         }
 
-        .cta-button:active {
-            transform: translateY(-1px);
-        }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -169,15 +350,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
             }
         }
 
@@ -262,18 +434,6 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        .skill-card:nth-child(2) .skill-icon {
-            animation-delay: 0.5s;
-        }
-
-        .skill-card:nth-child(3) .skill-icon {
-            animation-delay: 1s;
-        }
-
-        .skill-card:nth-child(4) .skill-icon {
-            animation-delay: 1.5s;
-        }
-
         .skill-name {
             font-size: 1.5rem;
             font-weight: 700;
@@ -285,6 +445,54 @@
             color: #cbd5e1;
             font-size: 0.95rem;
             line-height: 1.6;
+        }
+
+        /* Game Section */
+        .game-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border-top: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #gameCanvas {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(96, 165, 250, 0.5);
+            border-radius: 10px;
+            display: block;
+            margin: 1rem auto;
+            cursor: none;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .game-score {
+            color: #60a5fa;
+        }
+
+        .game-lives {
+            color: #ec4899;
+        }
+
+        .game-controls {
+            margin-top: 1rem;
+            color: #cbd5e1;
+            font-size: 0.9rem;
         }
 
         /* About Section */
@@ -377,6 +585,11 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+
+            .side-menu {
+                width: 280px;
+                right: -280px;
+            }
         }
 
         /* Scroll animations */
@@ -396,19 +609,56 @@
     <!-- Particles Background -->
     <div class="particles-container" id="particlesContainer"></div>
 
+    <!-- Burger Menu Button -->
+    <button class="burger-menu" id="burgerMenu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </button>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <button class="menu-close" id="menuClose">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="menu-links">
+            <a href="#home">🏠 Home</a>
+            <a href="#skills">💻 Skills</a>
+            <a href="#game">🎮 Game</a>
+            <a href="#about">👤 About</a>
+            <a href="#contact">📧 Contact</a>
+        </div>
+
+        <!-- AI Assistant -->
+        <div class="ai-assistant">
+            <div class="ai-title">
+                <i class="fas fa-robot"></i> Code Helper AI
+            </div>
+            <div class="ai-input-group">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about coding...">
+                <button class="ai-send-btn" id="aiSendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="ai-response" id="aiResponse" style="display: none;">
+                <p id="aiResponseText"></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Content -->
     <div class="content">
         <!-- Navigation -->
-        <nav class="px-6 py-4">
-            <div class="max-w-6xl mx-auto flex justify-between items-center">
-                <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                    Faxtifar
-                </div>
-                <div class="space-x-6 hidden md:flex">
-                    <a href="#home" class="text-gray-300 hover:text-blue-400">Home</a>
-                    <a href="#skills" class="text-gray-300 hover:text-blue-400">Skills</a>
-                    <a href="#about" class="text-gray-300 hover:text-blue-400">About</a>
-                    <a href="#contact" class="text-gray-300 hover:text-blue-400">Contact</a>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-logo">Faxtifar</div>
+                <div class="nav-links hidden md:flex">
+                    <a href="#home">Home</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#game">Game</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </div>
             </div>
         </nav>
@@ -460,6 +710,22 @@
             </div>
         </section>
 
+        <!-- Game Section -->
+        <section id="game" class="game-section">
+            <h2 class="section-title">🎮 Play a Game</h2>
+            <div class="game-container">
+                <p style="margin-bottom: 1rem; color: #cbd5e1;">Dodge the bugs and collect the stars!</p>
+                <canvas id="gameCanvas" width="700" height="400"></canvas>
+                <div class="game-info">
+                    <div class="game-score">Score: <span id="score">0</span></div>
+                    <div class="game-lives">Lives: <span id="lives">3</span></div>
+                </div>
+                <div class="game-controls">
+                    <p>🖱️ Move mouse to control the player | Collect ⭐ and avoid 🐛</p>
+                </div>
+            </div>
+        </section>
+
         <!-- About Section -->
         <section id="about" class="about-section">
             <div class="about-content">
@@ -507,7 +773,218 @@
     </div>
 
     <script>
-        // Create falling particles
+        // ===== BURGER MENU =====
+        const burgerMenu = document.getElementById('burgerMenu');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuClose = document.getElementById('menuClose');
+
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            sideMenu.classList.toggle('active');
+        });
+
+        menuClose.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            sideMenu.classList.remove('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.menu-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu.classList.remove('active');
+                sideMenu.classList.remove('active');
+            });
+        });
+
+        // ===== AI ASSISTANT =====
+        const aiInput = document.getElementById('aiInput');
+        const aiSendBtn = document.getElementById('aiSendBtn');
+        const aiResponse = document.getElementById('aiResponse');
+        const aiResponseText = document.getElementById('aiResponseText');
+
+        const codingTips = [
+            "💡 Always use meaningful variable names to make your code readable!",
+            "🔧 DRY (Don't Repeat Yourself) - extract common code into functions.",
+            "📚 Comment your code, but let the code speak for itself first.",
+            "🎯 Break complex problems into smaller, manageable functions.",
+            "✅ Test your code frequently to catch bugs early.",
+            "🚀 Use version control (Git) for all your projects.",
+            "🎨 Keep your CSS organized with BEM or similar naming conventions.",
+            "⚡ Optimize your JavaScript for performance - avoid unnecessary loops.",
+            "🔐 Always validate user input on both client and server side.",
+            "📱 Always design mobile-first for better responsive design."
+        ];
+
+        aiSendBtn.addEventListener('click', () => {
+            const query = aiInput.value.trim();
+            if (query) {
+                const randomTip = codingTips[Math.floor(Math.random() * codingTips.length)];
+                aiResponseText.textContent = randomTip;
+                aiResponse.style.display = 'block';
+                aiInput.value = '';
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    aiResponse.style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                aiSendBtn.click();
+            }
+        });
+
+        // ===== GAME =====
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const game = {
+            player: { x: canvas.width / 2, y: canvas.height - 30, width: 20, height: 20, speed: 5 },
+            stars: [],
+            bugs: [],
+            score: 0,
+            lives: 3,
+            gameRunning: true,
+            mouseX: canvas.width / 2,
+            mouseY: canvas.height - 30
+        };
+
+        // Mouse tracking
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            game.mouseX = e.clientX - rect.left;
+            game.mouseY = e.clientY - rect.top;
+        });
+
+        function createStar() {
+            return {
+                x: Math.random() * (canvas.width - 15),
+                y: Math.random() * (canvas.height / 2),
+                width: 15,
+                height: 15,
+                speed: 2
+            };
+        }
+
+        function createBug() {
+            return {
+                x: Math.random() * (canvas.width - 15),
+                y: Math.random() * (canvas.height / 2),
+                width: 15,
+                height: 15,
+                speed: 3 + Math.random() * 2,
+                dirX: Math.random() > 0.5 ? 1 : -1
+            };
+        }
+
+        // Initialize game
+        for (let i = 0; i < 3; i++) {
+            game.stars.push(createStar());
+            game.bugs.push(createBug());
+        }
+
+        function updateGame() {
+            if (!game.gameRunning) return;
+
+            // Move player towards mouse
+            if (game.mouseX > game.player.x) {
+                game.player.x += game.player.speed;
+            } else if (game.mouseX < game.player.x) {
+                game.player.x -= game.player.speed;
+            }
+
+            if (game.mouseY > game.player.y) {
+                game.player.y += game.player.speed;
+            } else if (game.mouseY < game.player.y) {
+                game.player.y -= game.player.speed;
+            }
+
+            // Keep player in bounds
+            game.player.x = Math.max(0, Math.min(canvas.width - game.player.width, game.player.x));
+            game.player.y = Math.max(0, Math.min(canvas.height - game.player.height, game.player.y));
+
+            // Update stars
+            game.stars.forEach((star, index) => {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    game.stars[index] = createStar();
+                }
+
+                // Check collision with player
+                if (checkCollision(game.player, star)) {
+                    game.score += 10;
+                    game.stars[index] = createStar();
+                    document.getElementById('score').textContent = game.score;
+                }
+            });
+
+            // Update bugs
+            game.bugs.forEach((bug, index) => {
+                bug.x += bug.speed * bug.dirX;
+                bug.y += Math.sin(bug.x / 50) * 1;
+
+                if (bug.x < 0 || bug.x > canvas.width) {
+                    bug.dirX *= -1;
+                }
+
+                // Check collision with player
+                if (checkCollision(game.player, bug)) {
+                    game.lives--;
+                    document.getElementById('lives').textContent = game.lives;
+                    game.bugs[index] = createBug();
+
+                    if (game.lives <= 0) {
+                        game.gameRunning = false;
+                        alert(`Game Over! Final Score: ${game.score}`);
+                        location.reload();
+                    }
+                }
+            });
+        }
+
+        function checkCollision(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+
+        function drawGame() {
+            // Clear canvas
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw stars
+            game.stars.forEach(star => {
+                ctx.fillStyle = '#fbbf24';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText('⭐', star.x, star.y);
+            });
+
+            // Draw bugs
+            game.bugs.forEach(bug => {
+                ctx.fillStyle = '#ef4444';
+                ctx.font = 'bold 20px Arial';
+                ctx.fillText('🐛', bug.x, bug.y);
+            });
+
+            // Draw player
+            ctx.fillStyle = '#60a5fa';
+            ctx.font = 'bold 25px Arial';
+            ctx.fillText('🎮', game.player.x, game.player.y + 15);
+        }
+
+        function gameLoop() {
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+
+        // ===== PARTICLES =====
         function createParticles() {
             const container = document.getElementById('particlesContainer');
             const particleCount = 50;
