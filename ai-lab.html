@@ -106,7 +106,7 @@
                 <div class="chat-messages" id="chatMessages">
                     <div class="message ai">
                         <div class="message-avatar">🤖</div>
-                        <div class="message-content">Привет! Я твой AI помощник по программированию с зрением. 👀 Я знаю Python, JavaScript, HTML/CSS, Java, C++, Go и другие языки. Спрашивай что угодно — я дам развернутый ответ с примерами кода! Можешь даже прикреплять скриншоты кода или ошибок, и я их проанализирую! 🚀</div>
+                        <div class="message-content">Привет! Я твой AI помощник по программированию. 👋 Я знаю Python, JavaScript, HTML/CSS, Java, C++, Go и другие языки. Спрашивай что угодно — я дам развернутый ответ с примерами кода! 🚀</div>
                     </div>
                 </div>
                 <div class="chat-input-area">
@@ -210,33 +210,34 @@
             if (indicator) indicator.remove();
         }
 
-        async function callAI(messages) {
+        async function callAI(userMessage) {
             try {
-                // Используем прокси для обхода CORS
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions';
-                
-                const response = await fetch(proxyUrl, {
+                // Используем Hugging Face Inference API (бесплатно, без CORS ограничений)
+                const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer sk-proj-test'
                     },
                     body: JSON.stringify({
-                        model: 'gpt-4.1-mini',
-                        messages: [
-                            { role: 'system', content: 'Ты помощник программиста. Отвечай на русском языке. Давай развернутые ответы с примерами кода. Если пользователь отправил изображение, проанализируй его и помоги. Используй Markdown для форматирования.' },
-                            ...messages
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 1500
+                        inputs: `Ты помощник программиста. Отвечай на русском языке развернуто с примерами кода. Используй Markdown для форматирования.\n\nПользователь: ${userMessage}\n\nТвой ответ:`,
+                        parameters: {
+                            max_new_tokens: 500,
+                            temperature: 0.7,
+                        }
                     })
                 });
 
-                if (!response.ok) throw new Error('Proxy error');
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
                 const data = await response.json();
-                return data.choices[0].message.content;
+                if (Array.isArray(data) && data[0] && data[0].generated_text) {
+                    return data[0].generated_text.split('Твой ответ:')[1]?.trim() || data[0].generated_text;
+                }
+                return null;
             } catch (e) {
-                console.log('Основной канал недоступен, пытаюсь альтернативный...');
+                console.log('Основной API недоступен, пытаюсь альтернативный...');
                 return null;
             }
         }
@@ -247,12 +248,11 @@
             
             addMessage(message || '(Отправил фото)', true, selectedImages);
             
-            const userMessage = {
+            conversationHistory.push({
                 role: 'user',
                 content: message || 'Проанализируй это изображение'
-            };
+            });
 
-            conversationHistory.push(userMessage);
             chatInput.value = '';
             chatInput.style.height = 'auto';
             selectedImages = [];
@@ -260,12 +260,8 @@
             sendBtn.disabled = true;
             showTypingIndicator();
 
-            const simplifiedMessages = conversationHistory.map(msg => ({
-                role: msg.role,
-                content: typeof msg.content === 'string' ? msg.content : (msg.content[0]?.text || 'Сообщение')
-            }));
-
-            const aiResponse = await callAI(simplifiedMessages);
+            const fullContext = conversationHistory.map(msg => `${msg.role === 'user' ? 'Пользователь' : 'Помощник'}: ${msg.content}`).join('\n\n');
+            const aiResponse = await callAI(fullContext);
 
             removeTypingIndicator();
             
