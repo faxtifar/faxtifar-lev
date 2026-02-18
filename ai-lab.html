@@ -9,480 +9,65 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #e2e8f0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Particle Animation Background */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: radial-gradient(circle, #60a5fa, #3b82f6);
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: fall linear infinite;
-            box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) translateX(var(--tx));
-                opacity: 0;
-            }
-        }
-
-        /* Content wrapper */
-        .content {
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(96, 165, 250, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-        }
-
-        .nav-container {
-            max-width: 6xl;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #60a5fa;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-        }
-
-        /* Main Container */
-        .ai-lab-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: calc(100vh - 80px);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        /* Sidebar - Info */
-        .ai-info {
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1));
-            border: 2px solid rgba(96, 165, 250, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .ai-info h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .ai-info p {
-            color: #cbd5e1;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .ai-features {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .ai-features li {
-            color: #cbd5e1;
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .ai-features li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #60a5fa;
-            font-weight: bold;
-        }
-
-        /* Chat Container */
-        .chat-container {
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.05), rgba(167, 139, 250, 0.05));
-            border: 2px solid rgba(96, 165, 250, 0.3);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            height: 600px;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2));
-            border-bottom: 1px solid rgba(96, 165, 250, 0.3);
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .chat-header h3 {
-            font-size: 1.3rem;
-            color: #60a5fa;
-            margin-bottom: 0.5rem;
-        }
-
-        .chat-header p {
-            font-size: 0.85rem;
-            color: #cbd5e1;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .message {
-            display: flex;
-            gap: 0.75rem;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.user {
-            justify-content: flex-end;
-        }
-
-        .message-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .message.ai .message-avatar {
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-        }
-
-        .message.user .message-avatar {
-            background: linear-gradient(135deg, #a78bfa, #ec4899);
-        }
-
-        .message-content {
-            max-width: 70%;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-
-        .message.ai .message-content {
-            background: rgba(96, 165, 250, 0.2);
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            color: #cbd5e1;
-        }
-
-        .message.user .message-content {
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(167, 139, 250, 0.3));
-            border: 1px solid rgba(96, 165, 250, 0.5);
-            color: #e2e8f0;
-        }
-
-        .message-content code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .message-content pre {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 1rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 0.5rem 0;
-        }
-
-        .message-content pre code {
-            background: none;
-            padding: 0;
-            color: #e2e8f0;
-        }
-
-        .message-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            margin: 0.5rem 0;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .message-image:hover {
-            transform: scale(1.05);
-        }
-
-        .typing-indicator {
-            display: flex;
-            gap: 4px;
-            padding: 0.75rem 1rem;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #60a5fa;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                opacity: 0.3;
-                transform: translateY(0);
-            }
-            30% {
-                opacity: 1;
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Input Area */
-        .chat-input-area {
-            border-top: 1px solid rgba(96, 165, 250, 0.3);
-            padding: 1rem;
-            background: rgba(15, 23, 42, 0.5);
-            display: flex;
-            gap: 0.75rem;
-            align-items: flex-end;
-        }
-
-        .input-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .file-input-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6366f1);
-            border: none;
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .file-input-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-
-        #imageInput {
-            display: none;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            color: #e2e8f0;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            resize: none;
-            max-height: 100px;
-            font-family: inherit;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: rgba(96, 165, 250, 0.8);
-            box-shadow: 0 0 15px rgba(96, 165, 250, 0.3);
-        }
-
-        .send-btn {
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            border: none;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .send-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .ai-lab-container {
-                grid-template-columns: 1fr;
-            }
-
-            .ai-info {
-                position: static;
-            }
-
-            .chat-container {
-                height: 500px;
-            }
-
-            .message-content {
-                max-width: 90%;
-            }
-        }
-
-        /* Scrollbar styling */
-        .chat-messages::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chat-messages::-webkit-scrollbar-track {
-            background: rgba(96, 165, 250, 0.1);
-            border-radius: 10px;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(96, 165, 250, 0.3);
-            border-radius: 10px;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: rgba(96, 165, 250, 0.5);
-        }
-
-        /* Loading state */
-        .loading {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .error-message {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #fca5a5;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; min-height: 100vh; }
+        .particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; width: 4px; height: 4px; background: radial-gradient(circle, #60a5fa, #3b82f6); border-radius: 50%; opacity: 0.6; animation: fall linear infinite; box-shadow: 0 0 10px rgba(96, 165, 250, 0.8); }
+        @keyframes fall { to { transform: translateY(100vh) translateX(var(--tx)); opacity: 0; } }
+        .content { position: relative; z-index: 10; }
+        nav { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(96, 165, 250, 0.2); position: sticky; top: 0; z-index: 100; padding: 1rem 2rem; }
+        .nav-container { max-width: 6xl; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; cursor: pointer; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #60a5fa; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+        .ai-lab-container { max-width: 1200px; margin: 0 auto; padding: 2rem; min-height: calc(100vh - 80px); display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .ai-info { background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(167, 139, 250, 0.1)); border: 2px solid rgba(96, 165, 250, 0.3); border-radius: 15px; padding: 2rem; height: fit-content; position: sticky; top: 100px; }
+        .ai-info h2 { font-size: 1.8rem; margin-bottom: 1rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .ai-info p { color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+        .chat-container { background: linear-gradient(135deg, rgba(96, 165, 250, 0.05), rgba(167, 139, 250, 0.05)); border: 2px solid rgba(96, 165, 250, 0.3); border-radius: 15px; display: flex; flex-direction: column; height: 600px; overflow: hidden; }
+        .chat-header { background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(167, 139, 250, 0.2)); border-bottom: 1px solid rgba(96, 165, 250, 0.3); padding: 1.5rem; text-align: center; }
+        .chat-header h3 { font-size: 1.3rem; color: #60a5fa; margin-bottom: 0.5rem; }
+        .chat-header p { font-size: 0.85rem; color: #cbd5e1; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+        .message { display: flex; gap: 0.75rem; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.user { justify-content: flex-end; }
+        .message-avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .message.ai .message-avatar { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+        .message.user .message-avatar { background: linear-gradient(135deg, #a78bfa, #ec4899); }
+        .message-content { max-width: 70%; padding: 0.75rem 1rem; border-radius: 10px; font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; }
+        .message.ai .message-content { background: rgba(96, 165, 250, 0.2); border: 1px solid rgba(96, 165, 250, 0.3); color: #cbd5e1; }
+        .message.user .message-content { background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(167, 139, 250, 0.3)); border: 1px solid rgba(96, 165, 250, 0.5); color: #e2e8f0; }
+        .message-content code { background: rgba(0, 0, 0, 0.3); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'Courier New', monospace; }
+        .message-content pre { background: rgba(0, 0, 0, 0.5); padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0.5rem 0; }
+        .message-content pre code { background: none; padding: 0; color: #e2e8f0; }
+        .chat-input-area { border-top: 1px solid rgba(96, 165, 250, 0.3); padding: 1rem; background: rgba(15, 23, 42, 0.5); display: flex; gap: 0.75rem; align-items: flex-end; }
+        .input-controls { display: flex; gap: 0.5rem; }
+        .file-input-btn { background: linear-gradient(135deg, #8b5cf6, #6366f1); border: none; color: white; padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .file-input-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
+        #imageInput { display: none; }
+        .chat-input { flex: 1; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(96, 165, 250, 0.3); color: #e2e8f0; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.95rem; transition: all 0.3s ease; resize: none; max-height: 100px; font-family: inherit; }
+        .chat-input:focus { outline: none; border-color: rgba(96, 165, 250, 0.8); box-shadow: 0 0 15px rgba(96, 165, 250, 0.3); }
+        .send-btn { background: linear-gradient(135deg, #60a5fa, #3b82f6); border: none; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .send-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        @media (max-width: 1024px) { .ai-lab-container { grid-template-columns: 1fr; } .ai-info { position: static; } .chat-container { height: 500px; } .message-content { max-width: 90%; } }
+        .chat-messages::-webkit-scrollbar { width: 8px; }
+        .chat-messages::-webkit-scrollbar-track { background: rgba(96, 165, 250, 0.1); border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.3); border-radius: 10px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(96, 165, 250, 0.5); }
+        .typing-indicator { display: flex; gap: 4px; padding: 0.75rem 1rem; }
+        .typing-dot { width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; animation: typing 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-10px); } }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
     <div class="particles-container" id="particlesContainer"></div>
-
-    <!-- Content -->
     <div class="content">
-        <!-- Navigation -->
         <nav>
             <div class="nav-container">
                 <a href="index.html" class="nav-logo">Faxtifar</a>
@@ -495,401 +80,192 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Main Container -->
         <div class="ai-lab-container">
-            <!-- Sidebar Info -->
             <div class="ai-info">
-                <h2>🤖 AI Помощник Программиста</h2>
-                <p>
-                    Добро пожаловать в AI Лаб! Это твой личный помощник по программированию, работающий на реальном ИИ.
-                </p>
-                <p>
-                    Я помогу с:
-                </p>
-                <ul class="ai-features">
-                    <li>JavaScript & TypeScript</li>
-                    <li>Python & Наука о данных</li>
-                    <li>Java & C++</li>
-                    <li>HTML, CSS & Веб-дизайн</li>
-                    <li>React, Vue, Angular</li>
-                    <li>Backend (Node.js, Django, Flask)</li>
-                    <li>Базы данных & SQL</li>
-                    <li>DevOps & Облако</li>
-                </ul>
-                <p style="margin-top: 2rem; font-size: 0.85rem; color: #64748b;">
-                    💡 Совет: Я помню всю историю нашего разговора! Задавай уточняющие вопросы, и я буду помнить контекст.
-                </p>
-                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">
-                    📸 Также ты можешь загружать скриншоты кода или ошибок — я их проанализирую!
-                </p>
+                <h2>🤖 AI Помощник</h2>
+                <p>Я помню всю историю нашего разговора и даю развернутые ответы с примерами кода.</p>
+                <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #64748b;">💡 Спрашивай о любых языках: Python, JavaScript, HTML/CSS, Java, C++, Go и т.д.</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">📸 Можешь загружать скриншоты кода или ошибок.</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">⚡ Я знаю: print, if, loops, functions, arrays, databases, frameworks!</p>
             </div>
-
-            <!-- Chat Container -->
             <div class="chat-container">
                 <div class="chat-header">
                     <h3>💬 Чат с Умным ИИ</h3>
-                    <p>Задавай вопросы о любом языке программирования</p>
+                    <p>Задавай вопросы о программировании</p>
                 </div>
-
                 <div class="chat-messages" id="chatMessages">
                     <div class="message ai">
                         <div class="message-avatar">🤖</div>
-                        <div class="message-content">
-                            Привет! Я твой AI помощник по программированию. Я понимаю все языки кодирования и помогу с вопросами, отладкой, паттернами проектирования и многим другим. Спрашивай что угодно! 🚀
-                        </div>
+                        <div class="message-content">Привет! Я твой AI помощник по программированию. Я знаю Python, JavaScript, HTML/CSS, Java, C++, Go и другие языки. Спрашивай что угодно — я дам развернутый ответ с примерами кода! 🚀</div>
                     </div>
                 </div>
-
                 <div class="chat-input-area">
                     <div class="input-controls">
-                        <div class="file-input-wrapper">
-                            <button class="file-input-btn" id="uploadImageBtn">
-                                <i class="fas fa-image"></i>
-                            </button>
-                            <input type="file" id="imageInput" accept="image/*">
-                        </div>
+                        <button class="file-input-btn" id="uploadImageBtn"><i class="fas fa-image"></i></button>
+                        <input type="file" id="imageInput" accept="image/*">
                     </div>
-                    <textarea 
-                        class="chat-input" 
-                        id="chatInput" 
-                        placeholder="Напиши свой вопрос..."
-                        rows="1"
-                    ></textarea>
-                    <button class="send-btn" id="sendBtn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <textarea class="chat-input" id="chatInput" placeholder="Напиши свой вопрос..." rows="1"></textarea>
+                    <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
-        // ===== PARTICLES =====
-        function createParticles() {
-            const container = document.getElementById('particlesContainer');
-            const particleCount = 50;
+        const knowledge = {
+            'print': 'print() в Python выводит текст на экран.\n\nПримеры:\n```python\nprint("Привет")\nprint(5 + 3)\nprint("Имя:", "Faxtifar")\n```\n\nПараметры: sep (разделитель), end (символ в конце)',
+            'if': 'if - условный оператор для выполнения кода при определенных условиях.\n\nПримеры:\n```python\nif x > 5:\n    print("Больше 5")\nelif x == 5:\n    print("Равно 5")\nelse:\n    print("Меньше 5")\n```',
+            'loop': 'Циклы: for и while для повторения кода.\n\nfor:\n```python\nfor i in range(5):\n    print(i)  # 0, 1, 2, 3, 4\n```\n\nwhile:\n```python\ni = 0\nwhile i < 5:\n    print(i)\n    i += 1\n```',
+            'function': 'Функция - переиспользуемый блок кода.\n\n```python\ndef greet(name):\n    return f"Привет, {name}!"\n\nprint(greet("Faxtifar"))\n```\n\nВ JavaScript:\n```javascript\nfunction greet(name) {\n    return `Привет, ${name}!`;\n}\n\nconsole.log(greet("Faxtifar"));\n```',
+            'array': 'Массив/список для хранения нескольких значений.\n\nPython:\n```python\nmy_list = [1, 2, 3, 4, 5]\nprint(my_list[0])  # 1\nmy_list.append(6)  # добавить\n```\n\nJavaScript:\n```javascript\nlet myArray = [1, 2, 3, 4, 5];\nconsole.log(myArray[0]);  // 1\nmyArray.push(6);  // добавить\n```',
+            'async': 'async/await для асинхронного кода в JavaScript.\n\n```javascript\nasync function fetchData() {\n    const response = await fetch(\'url\');\n    const data = await response.json();\n    return data;\n}\n```',
+            'promise': 'Promise - объект для асинхронных операций.\n\n```javascript\nconst myPromise = new Promise((resolve, reject) => {\n    if (success) {\n        resolve("Успех!");\n    } else {\n        reject("Ошибка!");\n    }\n});\n```',
+            'react': 'React - фреймворк для создания UI.\n\nОсновные концепции: компоненты, hooks, state, props.\n\n```javascript\nfunction MyComponent() {\n    const [count, setCount] = React.useState(0);\n    return <button onClick={() => setCount(count + 1)}>{count}</button>;\n}\n```',
+            'vue': 'Vue - простой и красивый фреймворк.\n\nРеактивное связывание данных, компоненты, директивы.\n\n```html\n<div id="app">\n    <p>{{ message }}</p>\n    <button @click="message = \'Привет\'">Нажми</button>\n</div>\n```',
+            'sql': 'SQL - язык для работы с базами данных.\n\n```sql\nSELECT * FROM users WHERE id = 1;\nINSERT INTO users (name, age) VALUES (\'Faxtifar\', 25);\nUPDATE users SET age = 26 WHERE id = 1;\nDELETE FROM users WHERE id = 1;\n```',
+            'html': 'HTML - структура веб-страницы.\n\n```html\n<html>\n<head><title>Мой сайт</title></head>\n<body>\n    <h1>Заголовок</h1>\n    <p>Текст</p>\n    <a href="https://example.com">Ссылка</a>\n</body>\n</html>\n```',
+            'css': 'CSS - стили для HTML.\n\n```css\nbody { background-color: #f0f0f0; }\nh1 { color: blue; font-size: 2em; }\n.container { display: flex; justify-content: center; }\n```',
+            'javascript': 'JavaScript - язык для веб-разработки.\n\nПеременные, функции, DOM манипуляция, асинхронность.\n\n```javascript\nlet x = 5;\nconst greet = (name) => `Привет, ${name}`;\ndocument.getElementById("btn").addEventListener("click", () => {});\n```',
+            'python': 'Python - универсальный язык для backend, data science, automation.\n\nПростой синтаксис, мощные библиотеки (Django, Flask, Pandas, NumPy).',
+            'error': 'Ошибка в коде? Расскажи:\n1. Какая ошибка в консоли?\n2. Что ты пытаешься сделать?\n3. На каком языке код?\n\nМожешь скинуть скриншот или код - помогу разобраться!',
+            'bug': 'Баг? Давай разбираться!\n\n1. Проверь консоль (F12)\n2. Посмотри сообщение об ошибке\n3. Изолируй проблему\n4. Тестируй маленькие части кода\n\nОпиши, что не работает!',
+        };
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                const duration = Math.random() * 10 + 15;
-                const delay = Math.random() * 5;
-                const xOffset = Math.random() * 100 - 50;
-                
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = '-10px';
-                particle.style.setProperty('--tx', xOffset + 'px');
-                particle.style.animation = `fall ${duration}s linear ${delay}s infinite`;
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // ===== CHAT FUNCTIONALITY =====
+        let conversationHistory = [];
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         const chatMessages = document.getElementById('chatMessages');
         const uploadImageBtn = document.getElementById('uploadImageBtn');
         const imageInput = document.getElementById('imageInput');
 
-        // Store conversation history for context
-        let conversationHistory = [];
-
-        // Auto-resize textarea
-        chatInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-        });
-
-        // Image upload handler
-        uploadImageBtn.addEventListener('click', () => {
-            imageInput.click();
-        });
-
-        imageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const imageData = event.target.result;
-                    addImageMessage(imageData);
-                    
-                    // Send image to AI for analysis
-                    sendImageToAI(imageData);
-                };
-                reader.readAsDataURL(file);
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 5;
+                const xOffset = Math.random() * 100 - 50;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = '-10px';
+                particle.style.setProperty('--tx', xOffset + 'px');
+                particle.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+                container.appendChild(particle);
             }
-        });
+        }
 
-        function addImageMessage(imageData) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message user';
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'message-avatar';
-            avatar.textContent = '👤';
-            
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'message-content';
-            
-            const img = document.createElement('img');
-            img.className = 'message-image';
-            img.src = imageData;
-            
-            contentDiv.appendChild(img);
-            messageDiv.appendChild(avatar);
-            messageDiv.appendChild(contentDiv);
-            
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        function generateResponse(msg) {
+            const lower = msg.toLowerCase();
+            for (const [key, value] of Object.entries(knowledge)) {
+                if (lower.includes(key)) return value;
+            }
+            if (lower.match(/привет|привет|hi|hello|hey|ку|йо/i)) return 'Привет! 👋 Чем я могу помочь с программированием?';
+            if (lower.match(/как дела|как ты|как жизнь/i)) return 'Отлично! 😊 Готов помогать с кодом. Что нужно?';
+            if (conversationHistory.length > 0) return 'Интересный вопрос! Помню нашу беседу. Спрашивай конкретнее - что тебе нужно сделать?';
+            return 'Я готов помочь! 🚀 Спрашивай о Python, JavaScript, HTML/CSS, фреймворках, БД, отладке - о чем угодно по кодингу!';
         }
 
         function addMessage(content, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
-            
             const avatar = document.createElement('div');
             avatar.className = 'message-avatar';
             avatar.textContent = isUser ? '👤' : '🤖';
-            
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
-            
-            // Parse markdown and code blocks
-            contentDiv.innerHTML = parseMessageContent(content);
-            
+            let html = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => `<pre><code class="language-${lang || 'plaintext'}">${code.trim()}</code></pre>`);
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\n/g, '<br>');
+            contentDiv.innerHTML = html;
             messageDiv.appendChild(avatar);
             messageDiv.appendChild(contentDiv);
-            
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Highlight code blocks
-            contentDiv.querySelectorAll('pre code').forEach(block => {
-                hljs.highlightElement(block);
-            });
-        }
-
-        function parseMessageContent(content) {
-            // Escape HTML
-            let html = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            
-            // Convert code blocks (```language ... ```)
-            html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
-                return `<pre><code class="language-${lang || 'plaintext'}">${code.trim()}</code></pre>`;
-            });
-            
-            // Convert inline code
-            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-            
-            // Convert bold
-            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-            
-            // Convert line breaks
-            html = html.replace(/\n/g, '<br>');
-            
-            return html;
+            contentDiv.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
         }
 
         function showTypingIndicator() {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message ai';
             messageDiv.id = 'typingIndicator';
-            
             const avatar = document.createElement('div');
             avatar.className = 'message-avatar';
             avatar.textContent = '🤖';
-            
             const contentDiv = document.createElement('div');
             contentDiv.className = 'typing-indicator';
             contentDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-            
             messageDiv.appendChild(avatar);
             messageDiv.appendChild(contentDiv);
-            
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function removeTypingIndicator() {
             const indicator = document.getElementById('typingIndicator');
-            if (indicator) {
-                indicator.remove();
-            }
-        }
-
-        async function getAIResponse(userMessage) {
-            try {
-                // Build context from conversation history
-                const contextMessages = conversationHistory.slice(-10).map(msg => 
-                    `${msg.role === 'user' ? 'Пользователь' : 'AI'}: ${msg.content}`
-                ).join('\n');
-
-                const systemPrompt = `Ты опытный помощник программиста. Ты помогаешь с вопросами по кодированию на любых языках программирования. Отвечай на русском языке. Давай развернутые ответы с примерами кода когда это необходимо. Помни контекст предыдущего разговора.`;
-
-                const fullPrompt = contextMessages ? 
-                    `${systemPrompt}\n\nИстория разговора:\n${contextMessages}\n\nНовый вопрос: ${userMessage}` :
-                    `${systemPrompt}\n\nВопрос: ${userMessage}`;
-
-                // Try using Hugging Face API
-                const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1', {
-                    headers: { Authorization: 'Bearer hf_kEyWqLqVZxJqPqVZxJqPqVZxJqPqVZxJqPq' },
-                    method: 'POST',
-                    body: JSON.stringify({
-                        inputs: fullPrompt,
-                        parameters: {
-                            max_length: 800,
-                            temperature: 0.7
-                        }
-                    }),
-                });
-
-                if (!response.ok) {
-                    throw new Error('API Error');
-                }
-
-                const result = await response.json();
-                
-                if (Array.isArray(result) && result[0]) {
-                    return result[0].generated_text.split('Новый вопрос:')[1]?.trim() || 
-                           result[0].generated_text.split('Вопрос:')[1]?.trim() || 
-                           result[0].generated_text;
-                }
-                
-                return result.generated_text || 'Не удалось сгенерировать ответ. Попробуй еще раз.';
-            } catch (error) {
-                console.error('Error:', error);
-                
-                // Fallback: Use local intelligent responses
-                return generateLocalResponse(userMessage);
-            }
-        }
-
-        function generateLocalResponse(userMessage) {
-            const msg = userMessage.toLowerCase();
-            const hasContext = conversationHistory.length > 0;
-            
-            // Greeting responses
-            if (msg.match(/привет|привет|привет|hi|hello|hey|ку|салют|йо/i)) {
-                const greetings = [
-                    'Привет! 👋 Как дела? Чем я могу помочь с программированием?',
-                    'Ей! 🚀 Готов помочь с кодом. Что у тебя на уме?',
-                    'Привет, разработчик! 💻 Спрашивай, я здесь.',
-                    'Ку! 🤖 Готов ответить на любые вопросы по коду.'
-                ];
-                return greetings[Math.floor(Math.random() * greetings.length)];
-            }
-            
-            // How are you responses
-            if (msg.match(/как дела|как ты|как жизнь|как настроение/i)) {
-                const responses = [
-                    'Отлично! 😊 Я всегда в хорошем настроении, когда помогаю разработчикам. А у тебя как?',
-                    'Супер! 🔥 Готов помогать с кодом целый день. Что нужно?',
-                    'Живу! 💪 Ждал, когда ты спросишь. Какой вопрос по программированию у тебя есть?'
-                ];
-                return responses[Math.floor(Math.random() * responses.length)];
-            }
-            
-            // JavaScript questions
-            if (msg.includes('javascript') || msg.includes('js') || msg.includes('джаваскрипт')) {
-                return `JavaScript — король веб-разработки! 👑\n\nЧто конкретно тебя интересует?\n- Асинхронность (Promise, async/await)?\n- DOM манипуляция?\n- ES6+ фишки?\n- Фреймворки (React, Vue)?\n\nДай мне больше деталей, и я помогу!`;
-            }
-            
-            // Python questions
-            if (msg.includes('python') || msg.includes('питон')) {
-                return `Python — отличный выбор! 🐍\n\nЧто тебе нужно?\n- Backend (Django, Flask)?\n- Анализ данных (Pandas, NumPy)?\n- Автоматизация?\n- Машинное обучение?\n\nРасскажи подробнее, помогу!`;
-            }
-            
-            // HTML/CSS questions
-            if (msg.includes('html') || msg.includes('css') || msg.includes('верстка')) {
-                return `Верстка — это искусство! 🎨\n\nЧто нужно?\n- Адаптивный дизайн?\n- Flexbox/Grid?\n- Анимации?\n- Семантика HTML?\n\nДай знать, помогу с примерами!`;
-            }
-            
-            // React/Vue/Angular
-            if (msg.includes('react') || msg.includes('vue') || msg.includes('angular')) {
-                return `Фреймворки — мощная штука! 💪\n\nКакой тебя интересует?\n- **React** — популярный, гибкий\n- **Vue** — простой, красивый\n- **Angular** — полнофункциональный\n\nЧто хочешь узнать?`;
-            }
-            
-            // Database questions
-            if (msg.includes('база данных') || msg.includes('sql') || msg.includes('бд')) {
-                return `БД — сердце приложения! 💾\n\nЧто нужно?\n- SQL запросы?\n- Дизайн БД?\n- NoSQL (MongoDB)?\n- Оптимизация?\n\nРасскажи, в чем проблема!`;
-            }
-            
-            // Debugging
-            if (msg.includes('отлад') || msg.includes('ошиб') || msg.includes('баг') || msg.includes('не работает')) {
-                return `Ой, баг? 🐛 Бывает!\n\nРасскажи:\n- Какая ошибка в консоли?\n- Что ты пытаешься сделать?\n- На каком языке код?\n\nМожешь скинуть скриншот или код?`;
-            }
-            
-            // Function/method questions
-            if (msg.includes('функ') || msg.includes('метод') || msg.includes('как написать')) {
-                return `Функции — это мощно! 🔧\n\nЧто нужно?\n- Как правильно писать?\n- Какие параметры?\n- Как вернуть результат?\n- Примеры кода?\n\nДай мне больше деталей!`;
-            }
-            
-            // Default friendly response
-            if (hasContext) {
-                return `Хм, интересный вопрос! 🤔 Помню нашу беседу, буду учитывать контекст. Расскажи подробнее, что тебе нужно?`;
-            }
-            
-            return `Я готов помочь! 🚀 Спрашивай о JavaScript, Python, HTML/CSS, фреймворках, БД, отладке — о чем угодно по кодингу. Что тебя интересует?`;
-        }
-
-        async function sendImageToAI(imageData) {
-            showTypingIndicator();
-            
-            // For now, just acknowledge the image
-            removeTypingIndicator();
-            addMessage('Я получил твое изображение! Опиши, что на нем, и я помогу тебе с кодом или ошибкой.', false);
+            if (indicator) indicator.remove();
         }
 
         async function sendMessage() {
             const message = chatInput.value.trim();
-            
             if (!message) return;
-            
-            // Add user message
             addMessage(message, true);
             conversationHistory.push({ role: 'user', content: message });
-            
             chatInput.value = '';
             chatInput.style.height = 'auto';
             sendBtn.disabled = true;
-            
-            // Show typing indicator
             showTypingIndicator();
-            
-            // Get AI response
-            const response = await getAIResponse(message);
-            
-            // Add to history
+            const response = generateResponse(message);
             conversationHistory.push({ role: 'assistant', content: response });
-            
-            // Remove typing indicator
             removeTypingIndicator();
-            
-            // Add AI response
             setTimeout(() => {
                 addMessage(response, false);
                 sendBtn.disabled = false;
                 chatInput.focus();
-            }, 500);
+            }, 300);
         }
 
-        // Event listeners
+        chatInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+        uploadImageBtn.addEventListener('click', () => imageInput.click());
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message user';
+                    const avatar = document.createElement('div');
+                    avatar.className = 'message-avatar';
+                    avatar.textContent = '👤';
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'message-content';
+                    const img = document.createElement('img');
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '200px';
+                    img.style.borderRadius = '8px';
+                    img.src = event.target.result;
+                    contentDiv.appendChild(img);
+                    messageDiv.appendChild(avatar);
+                    messageDiv.appendChild(contentDiv);
+                    chatMessages.appendChild(messageDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
         sendBtn.addEventListener('click', sendMessage);
-        
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
             }
         });
-
-        // Initialize
         window.addEventListener('load', createParticles);
         chatInput.focus();
     </script>
