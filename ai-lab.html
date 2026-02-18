@@ -210,6 +210,33 @@
             if (indicator) indicator.remove();
         }
 
+        async function callAI(messages) {
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer sk-proj-test'
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4.1-mini',
+                        messages: [
+                            { role: 'system', content: 'Ты помощник программиста. Отвечай на русском языке. Давай развернутые ответы с примерами кода. Если пользователь отправил изображение, проанализируй его и помоги. Используй Markdown для форматирования.' },
+                            ...messages
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 1500
+                    })
+                });
+
+                if (!response.ok) throw new Error('API error');
+                const data = await response.json();
+                return data.choices[0].message.content;
+            } catch (e) {
+                return null;
+            }
+        }
+
         async function sendMessage() {
             const message = chatInput.value.trim();
             if (!message && selectedImages.length === 0) return;
@@ -238,45 +265,23 @@
             sendBtn.disabled = true;
             showTypingIndicator();
 
-            try {
-                const messages = conversationHistory.map(msg => {
-                    if (msg.role === 'assistant') {
-                        return { role: msg.role, content: msg.content };
-                    }
-                    return msg;
-                });
-
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${process.env.OPENAI_API_KEY || 'sk-test'}`
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-4.1-mini',
-                        messages: [
-                            { role: 'system', content: 'Ты помощник программиста. Отвечай на русском языке. Давай развернутые ответы с примерами кода. Если пользователь отправил изображение, проанализируй его и помоги. Используй Markdown для форматирования.' },
-                            ...messages
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 1500
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error('API error');
+            const aiResponse = await callAI(conversationHistory.map(msg => {
+                if (msg.role === 'assistant') {
+                    return { role: msg.role, content: msg.content };
                 }
+                if (msg.role === 'user' && Array.isArray(msg.content)) {
+                    return { role: msg.role, content: msg.content[0].text };
+                }
+                return msg;
+            }));
 
-                const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
+            removeTypingIndicator();
+            
+            if (aiResponse) {
                 conversationHistory.push({ role: 'assistant', content: aiResponse });
-                
-                removeTypingIndicator();
                 addMessage(aiResponse, false);
-            } catch (error) {
-                removeTypingIndicator();
-                const fallbackResponse = 'Извини, не могу подключиться к ИИ. Попробуй еще раз или проверь интернет. 😕';
-                addMessage(fallbackResponse, false);
+            } else {
+                addMessage('Ой, что-то пошло не так с подключением. Попробуй еще раз! 😊', false);
             }
 
             sendBtn.disabled = false;
