@@ -47,11 +47,17 @@
         .message-content strong { color: #60a5fa; font-weight: 600; }
         .message-content ul, .message-content ol { margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .message-content li { margin-bottom: 0.25rem; }
-        .chat-input-area { border-top: 1px solid rgba(96, 165, 250, 0.3); padding: 1rem; background: rgba(15, 23, 42, 0.5); display: flex; gap: 0.75rem; align-items: flex-end; }
+        .message-image { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 0.5rem; }
+        .chat-input-area { border-top: 1px solid rgba(96, 165, 250, 0.3); padding: 1rem; background: rgba(15, 23, 42, 0.5); display: flex; flex-direction: column; gap: 0.75rem; }
+        .input-row { display: flex; gap: 0.75rem; align-items: flex-end; }
         .input-controls { display: flex; gap: 0.5rem; }
         .file-input-btn { background: linear-gradient(135deg, #8b5cf6, #6366f1); border: none; color: white; padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
         .file-input-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); }
         #imageInput { display: none; }
+        .image-preview { display: flex; gap: 0.5rem; flex-wrap: wrap; padding: 0.5rem 0; }
+        .preview-item { position: relative; }
+        .preview-img { max-width: 80px; max-height: 80px; border-radius: 8px; border: 2px solid rgba(96, 165, 250, 0.5); }
+        .remove-img { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
         .chat-input { flex: 1; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(96, 165, 250, 0.3); color: #e2e8f0; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.95rem; transition: all 0.3s ease; resize: none; max-height: 100px; font-family: inherit; }
         .chat-input:focus { outline: none; border-color: rgba(96, 165, 250, 0.8); box-shadow: 0 0 15px rgba(96, 165, 250, 0.3); }
         .send-btn { background: linear-gradient(135deg, #60a5fa, #3b82f6); border: none; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
@@ -89,38 +95,43 @@
                 <h2>🤖 AI Помощник</h2>
                 <p>Я помню всю историю нашего разговора и даю развернутые ответы с примерами кода.</p>
                 <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #64748b;">💡 Спрашивай о любых языках: Python, JavaScript, HTML/CSS, Java, C++, Go и т.д.</p>
-                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">📸 Можешь загружать скриншоты кода или ошибок.</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">👀 Я вижу! Загружай скриншоты кода, ошибок, дизайнов - я проанализирую!</p>
                 <p style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">⚡ Я использую мощный ИИ для реальных ответов на любые вопросы!</p>
             </div>
             <div class="chat-container">
                 <div class="chat-header">
                     <h3>💬 Чат с Умным ИИ</h3>
-                    <p>Задавай вопросы о программировании</p>
+                    <p>Задавай вопросы о программировании (можешь прикреплять фото)</p>
                 </div>
                 <div class="chat-messages" id="chatMessages">
                     <div class="message ai">
                         <div class="message-avatar">🤖</div>
-                        <div class="message-content">Привет! Я твой AI помощник по программированию, работающий на мощном ИИ. Я знаю Python, JavaScript, HTML/CSS, Java, C++, Go и другие языки. Спрашивай что угодно — я дам развернутый ответ с примерами кода! 🚀</div>
+                        <div class="message-content">Привет! Я твой AI помощник по программированию с зрением. 👀 Я знаю Python, JavaScript, HTML/CSS, Java, C++, Go и другие языки. Спрашивай что угодно — я дам развернутый ответ с примерами кода! Можешь даже прикреплять скриншоты кода или ошибок, и я их проанализирую! 🚀</div>
                     </div>
                 </div>
                 <div class="chat-input-area">
-                    <div class="input-controls">
-                        <button class="file-input-btn" id="uploadImageBtn"><i class="fas fa-image"></i></button>
-                        <input type="file" id="imageInput" accept="image/*">
+                    <div id="imagePreview" class="image-preview"></div>
+                    <div class="input-row">
+                        <div class="input-controls">
+                            <button class="file-input-btn" id="uploadImageBtn"><i class="fas fa-image"></i> Фото</button>
+                            <input type="file" id="imageInput" accept="image/*" multiple>
+                        </div>
+                        <textarea class="chat-input" id="chatInput" placeholder="Напиши свой вопрос..." rows="1"></textarea>
+                        <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
                     </div>
-                    <textarea class="chat-input" id="chatInput" placeholder="Напиши свой вопрос..." rows="1"></textarea>
-                    <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
     </div>
     <script>
         let conversationHistory = [];
+        let selectedImages = [];
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         const chatMessages = document.getElementById('chatMessages');
         const uploadImageBtn = document.getElementById('uploadImageBtn');
         const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
 
         function createParticles() {
             const container = document.getElementById('particlesContainer');
@@ -141,7 +152,7 @@
             }
         }
 
-        function addMessage(content, isUser = false) {
+        function addMessage(content, isUser = false, images = null) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
             const avatar = document.createElement('div');
@@ -158,6 +169,16 @@
             
             messageDiv.appendChild(avatar);
             messageDiv.appendChild(contentDiv);
+            
+            if (images && images.length > 0) {
+                images.forEach(img => {
+                    const imgEl = document.createElement('img');
+                    imgEl.className = 'message-image';
+                    imgEl.src = img;
+                    contentDiv.appendChild(imgEl);
+                });
+            }
+            
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             
@@ -191,16 +212,40 @@
 
         async function sendMessage() {
             const message = chatInput.value.trim();
-            if (!message) return;
+            if (!message && selectedImages.length === 0) return;
             
-            addMessage(message, true);
-            conversationHistory.push({ role: 'user', content: message });
+            addMessage(message || '(Отправил фото)', true, selectedImages);
+            
+            const userMessage = {
+                role: 'user',
+                content: [{ type: 'text', text: message || 'Проанализируй это изображение' }]
+            };
+
+            if (selectedImages.length > 0) {
+                selectedImages.forEach(img => {
+                    userMessage.content.push({
+                        type: 'image_url',
+                        image_url: { url: img }
+                    });
+                });
+            }
+
+            conversationHistory.push(userMessage);
             chatInput.value = '';
             chatInput.style.height = 'auto';
+            selectedImages = [];
+            imagePreview.innerHTML = '';
             sendBtn.disabled = true;
             showTypingIndicator();
 
             try {
+                const messages = conversationHistory.map(msg => {
+                    if (msg.role === 'assistant') {
+                        return { role: msg.role, content: msg.content };
+                    }
+                    return msg;
+                });
+
                 const response = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: {
@@ -210,11 +255,11 @@
                     body: JSON.stringify({
                         model: 'gpt-4.1-mini',
                         messages: [
-                            { role: 'system', content: 'Ты помощник программиста. Отвечай на русском языке. Давай развернутые ответы с примерами кода. Используй Markdown для форматирования.' },
-                            ...conversationHistory
+                            { role: 'system', content: 'Ты помощник программиста. Отвечай на русском языке. Давай развернутые ответы с примерами кода. Если пользователь отправил изображение, проанализируй его и помоги. Используй Markdown для форматирования.' },
+                            ...messages
                         ],
                         temperature: 0.7,
-                        max_tokens: 1000
+                        max_tokens: 1500
                     })
                 });
 
@@ -246,31 +291,38 @@
         uploadImageBtn.addEventListener('click', () => imageInput.click());
         
         imageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function(event) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'message user';
-                    const avatar = document.createElement('div');
-                    avatar.className = 'message-avatar';
-                    avatar.textContent = '👤';
-                    const contentDiv = document.createElement('div');
-                    contentDiv.className = 'message-content';
-                    const img = document.createElement('img');
-                    img.style.maxWidth = '100%';
-                    img.style.maxHeight = '200px';
-                    img.style.borderRadius = '8px';
-                    img.src = event.target.result;
-                    contentDiv.appendChild(img);
-                    messageDiv.appendChild(avatar);
-                    messageDiv.appendChild(contentDiv);
-                    chatMessages.appendChild(messageDiv);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    selectedImages.push(event.target.result);
+                    updateImagePreview();
                 };
                 reader.readAsDataURL(file);
-            }
+            });
+            imageInput.value = '';
         });
+
+        function updateImagePreview() {
+            imagePreview.innerHTML = '';
+            selectedImages.forEach((img, index) => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                const imgEl = document.createElement('img');
+                imgEl.className = 'preview-img';
+                imgEl.src = img;
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-img';
+                removeBtn.textContent = '×';
+                removeBtn.onclick = () => {
+                    selectedImages.splice(index, 1);
+                    updateImagePreview();
+                };
+                previewItem.appendChild(imgEl);
+                previewItem.appendChild(removeBtn);
+                imagePreview.appendChild(previewItem);
+            });
+        }
 
         sendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keypress', (e) => {
