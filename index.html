@@ -58,7 +58,7 @@
         .cta-button:hover { transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink); background:var(--coral-dark); }
         @keyframes fadeInUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} } @keyframes slideDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}} @keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}} @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-        .skills-section,.game-section,.video-section,.about-section,.projects-section { padding:7rem max(2rem, calc((100vw - 1240px)/2)); background:var(--paper); border-bottom:1px solid var(--line); }
+        .skills-section,.about-section,.projects-section { padding:7rem max(2rem, calc((100vw - 1240px)/2)); background:var(--paper); border-bottom:1px solid var(--line); }
         .section-title { max-width:1000px; margin:0 0 2.6rem; font:600 clamp(2.3rem,5vw,4.2rem)/.95 var(--display); letter-spacing:-.08em; text-align:left; color:var(--ink); }
         .section-title::before { content:"0" counter(section) " — "; color:var(--coral); font:500 .75rem var(--mono); letter-spacing:.02em; vertical-align:middle; }
         .skills-section { counter-reset:section; } .skills-section .section-title::before { content:"01 — "; } .game-section .section-title::before { content:"02 — "; } .video-section .section-title::before { content:"03 — "; } .projects-section .section-title::before { content:"04 — "; } .about-section .section-title::before { content:"05 — "; }
@@ -66,16 +66,63 @@
         .skill-card { min-height:245px; background:transparent; border-right:1px solid var(--ink); border-bottom:1px solid var(--ink); border-radius:0; padding:1.35rem; text-align:left; transition:background .25s ease, transform .25s ease; cursor:pointer; position:relative; overflow:hidden; }
         .skill-card:nth-child(2){transform:translateY(24px)} .skill-card:nth-child(3){background:var(--teal);color:var(--paper)} .skill-card:nth-child(4){transform:translateY(-12px)} .skill-card:hover{background:var(--yellow); color:var(--ink); transform:translateY(-5px) rotate(-1deg); z-index:2;}
         .skill-icon { font-size:2rem; margin-bottom:4rem; animation:none; } .skill-name{font:500 1rem var(--mono);margin-bottom:.55rem;color:inherit}.skill-description{color:var(--muted);font-size:.84rem;line-height:1.55}.skill-card:nth-child(3) .skill-description{color:#d5e0d7}.skill-card:hover .skill-description{color:var(--ink)}
-        .game-container,.video-container{max-width:1000px;margin:0;background:var(--ink);color:var(--paper);border:0;border-radius:0;padding:1.35rem;text-align:center;box-shadow:10px 10px 0 var(--paper-deep);}
-        #gameCanvas{max-width:100%;height:auto;background:#24201b;border:1px solid #595047;border-radius:0;display:block;margin:1rem auto;cursor:none}.game-info{display:flex;justify-content:space-around;margin:1rem 0;font:.78rem var(--mono)}.game-score{color:var(--yellow)}.game-lives{color:#f28972}.game-controls,.video-description{color:#bcb3a8;font-size:.82rem}
-        .video-player{width:100%;display:block;max-height:70vh;background:#080706;border-radius:0;border:1px solid #595047}.video-actions{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}.download-button{display:inline-flex;align-items:center;gap:.5rem;padding:.72rem 1rem;border-radius:0;background:transparent;color:var(--yellow);border:1px solid var(--yellow);text-decoration:none;font:500 .75rem var(--mono);transition:all .2s ease}.download-button:hover{transform:translateY(-2px);background:var(--yellow);color:var(--ink);}
         .about-content{max-width:1000px;margin:0;display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:center}.about-text h2{font:600 2.2rem var(--display);letter-spacing:-.07em;margin-bottom:1.3rem;color:var(--ink)}.about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;font-size:1rem}.about-image{position:relative;border-radius:0;overflow:hidden;border:1px solid var(--ink);transform:rotate(2deg);box-shadow:10px 10px 0 var(--coral)}.about-image img{width:100%;height:auto;display:block;filter:sepia(.22) saturate(.78);transition:filter .3s ease,transform .3s ease}.about-image:hover{transform:rotate(-1deg) scale(1.01)}.about-image:hover img{filter:sepia(0) saturate(1);transform:scale(1.04)}
         .projects-grid{max-width:1000px;display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--ink)}.project-card{background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;overflow:hidden;transition:background .25s ease;padding:1rem 0;display:grid;grid-template-columns:220px 1fr;gap:2rem;align-items:start}.project-card:hover{background:var(--paper-deep)}.project-image{width:220px;height:160px;background:var(--teal);display:flex;align-items:center;justify-content:center;font:700 2.2rem var(--display);color:var(--paper);overflow:hidden;position:relative}.project-image::after{content:"ROBLOX / LUA";position:absolute;bottom:.55rem;left:.7rem;color:var(--yellow);font:.62rem var(--mono);letter-spacing:.08em}.project-content{padding:.3rem 0;display:flex;flex-direction:column;flex-grow:1}.project-title{font:600 1.4rem var(--display);letter-spacing:-.05em;color:var(--ink);margin-bottom:.45rem}.project-description{color:var(--muted);font-size:.92rem;line-height:1.65;margin-bottom:1rem}.project-stats{display:flex;gap:1rem;margin-bottom:1rem;font:.7rem var(--mono);color:var(--muted)}.project-stat{display:flex;align-items:center;gap:.25rem}.project-stat i{color:var(--coral)}.project-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}.project-tag{background:transparent;color:var(--teal);padding:.2rem .55rem;border-radius:0;font:.67rem var(--mono);border:1px solid var(--teal)}.project-links{display:flex;gap:.5rem;margin-top:auto}.project-link{padding:.62rem .8rem;background:var(--coral);color:var(--paper);text-decoration:none;border-radius:0;text-align:center;font:500 .7rem var(--mono);transition:all .2s ease;border:1px solid var(--coral)}.project-link:hover{background:var(--coral-dark);transform:translateY(-2px)}.project-link.secondary{background:transparent;color:var(--ink);border-color:var(--ink)}.project-link.secondary:hover{background:var(--ink);color:var(--paper)}
         footer{background:var(--ink);border-top:4px solid var(--coral);padding:2rem; text-align:center;color:#bcb3a8;font:.75rem var(--mono)}footer a{color:var(--yellow);text-decoration:none}footer a:hover{color:var(--paper)}
         .fade-in{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}.fade-in.visible{opacity:1;transform:translateY(0)}
         @media(max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr)}.skill-card:nth-child(2),.skill-card:nth-child(4){transform:none}.about-content{grid-template-columns:1fr;gap:3rem}.hero::after{right:4%;bottom:8%;width:90px;height:90px}}
         @media(max-width:768px){nav{padding:.9rem 1rem}.nav-links{display:none}.hero{min-height:80vh;padding:5rem 1.2rem}.hero h1{font-size:clamp(4rem,19vw,7rem)}.hero-content::after{left:0;bottom:-5rem}.skills-section,.game-section,.video-section,.about-section,.projects-section{padding:5rem 1.2rem}.section-title{font-size:2.5rem}.skills-grid{grid-template-columns:1fr 1fr}.skill-card{min-height:215px}.skill-icon{margin-bottom:2.5rem}.project-card{grid-template-columns:1fr;gap:1rem}.project-image{width:100%;height:180px}.side-menu{width:280px;right:-280px}}
-    </style>
+
+        /* Mobile refinement: keep the editorial character, remove desktop assumptions. */
+        @media (max-width: 768px) {
+            body { min-width: 0; }
+            nav { padding: .85rem 1rem; }
+            .nav-container { padding-right: 3rem; }
+            .nav-logo { font-size: .92rem; }
+            .burger-menu { top: .75rem; right: .75rem; width: 40px; height: 40px; box-shadow: 3px 3px 0 var(--coral); }
+            .hero { min-height: 78svh; padding: 4.5rem 1.15rem 6rem; }
+            .hero::before { right: -1.2rem; top: 11rem; font-size: .58rem; }
+            .hero::after { right: 1.5rem; bottom: 3.5rem; width: 70px; height: 70px; }
+            .hero-content::before { max-width: 19rem; font-size: .62rem; line-height: 1.7; }
+            .hero-content::after { left: 0; bottom: -4rem; font-size: .58rem; }
+            .hero h1 { max-width: 100%; font-size: clamp(3.65rem, 19vw, 6.5rem); letter-spacing: -.11em; overflow-wrap: anywhere; }
+            .hero p { max-width: 20rem; font-size: 1rem; }
+            .cta-button { min-height: 44px; padding: .78rem 1rem; }
+            .skills-section, .about-section, .projects-section { padding: 4.5rem 1.15rem; }
+            .section-title { font-size: clamp(2.15rem, 12vw, 3.2rem); margin-bottom: 2rem; }
+            .skills-grid { grid-template-columns: 1fr 1fr; width: 100%; }
+            .skill-card { min-height: 205px; padding: 1rem; }
+            .skill-icon { font-size: 1.65rem; margin-bottom: 2.2rem; }
+            .skill-name { font-size: .82rem; }
+            .skill-description { font-size: .76rem; line-height: 1.5; }
+            .about-content { gap: 2.5rem; }
+            .about-text h2 { font-size: 1.9rem; }
+            .about-text p { font-size: .94rem; }
+            .about-image { margin: 0 .6rem; }
+            .project-card { padding: 1.15rem 0 1.35rem; }
+            .project-image { height: 165px; }
+            .project-title { font-size: 1.25rem; }
+            .project-description { font-size: .86rem; }
+            .project-links { flex-wrap: wrap; }
+            .project-link { min-height: 42px; flex: 1 1 8rem; }
+            #contact { padding-bottom: 4.5rem; }
+            #contact .max-w-2xl { max-width: 100%; }
+            #contact .flex { gap: .75rem; }
+            #contact .cta-button { flex: 1 1 9rem; justify-content: center; }
+            footer { padding: 1.5rem 1rem; font-size: .68rem; }
+        }
+        @media (max-width: 420px) {
+            .hero h1 { font-size: clamp(3.3rem, 18vw, 5.2rem); }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-card { min-height: 155px; }
+            .skill-icon { margin-bottom: 1.4rem; }
+            .side-menu { width: min(290px, 86vw); }
+        }
+
+        #projects .section-title::before { content: "02 — "; }
+        #about::before { content: "03 — "; display: block; color: var(--coral); font: 500 .75rem var(--mono); margin-bottom: 1rem; }
+        #contact .section-title::before { content: "04 — "; }
+</style>
 </head>
 <body>
     <!-- Particles Background -->
@@ -97,7 +144,6 @@
                 <div class="menu-links">
             <a href="index.html">🏠 Home</a>
             <a href="index.html#skills">💻 Skills</a>
-            <a href="index.html#game">🎮 Game</a>
             <a href="index.html#projects">📁 Projects</a>
             <a href="index.html#about">👤 About</a>
             <a href="ai-lab.html" style="color: #60a5fa; font-weight: 700;">🤖 AI Lab</a>
@@ -130,10 +176,7 @@
                 <div class="nav-links hidden md:flex">
                     <a href="#home">Home</a>
                     <a href="#skills">Skills</a>
-                    <a href="#game">Game</a>
-                    <a href="#video">Video</a>
-                    <a href="#files">Files</a>
-                    <a href="#projects">Projects</a>
+                                            <a href="#projects">Projects</a>
                     <a href="#about">About</a>
                     <a href="ai-lab.html" style="color: #60a5fa; font-weight: 700;">AI Lab</a>
                     <a href="#contact">Contact</a>
@@ -188,54 +231,6 @@
             </div>
         </section>
 
-        <!-- Game Section -->
-        <section id="game" class="game-section">
-            <h2 class="section-title">🎮 Play a Game</h2>
-            <div class="game-container">
-                <p style="margin-bottom: 1rem; color: #cbd5e1;">Dodge the bugs and collect the stars!</p>
-                <canvas id="gameCanvas" width="700" height="400"></canvas>
-                <div class="game-info">
-                    <div class="game-score">Score: <span id="score">0</span></div>
-                    <div class="game-lives">Lives: <span id="lives">3</span></div>
-                </div>
-                <div class="game-controls">
-                    <p>🖱️ Move mouse to control the player | Collect ⭐ and avoid 🐛</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Video Section -->
-        <section id="video" class="video-section">
-            <h2 class="section-title">🎬 My Video</h2>
-            <div class="video-container">
-                <video class="video-player" controls preload="metadata" playsinline>
-                    <source src="gemini_music.mp4" type="video/mp4">
-                    Твой браузер не поддерживает воспроизведение видео.
-                </video>
-                <p class="video-description">Смотри видео прямо на сайте или скачай его на устройство.</p>
-                <div class="video-actions">
-                    <a class="download-button" href="gemini_music.mp4" download="gemini_music.mp4">
-                        <i class="fas fa-download" aria-hidden="true"></i>
-                        Скачать видео
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Files Section -->
-        <section id="files" class="video-section">
-            <h2 class="section-title">📁 Files</h2>
-            <div class="video-container">
-                <p class="video-description">Материал для скачивания</p>
-                <div class="video-actions">
-                    <a class="download-button" href="files/8aƏdəbiyyat.xlsx" download="8aƏdəbiyyat.xlsx">
-                        <i class="fas fa-file-excel" aria-hidden="true"></i>
-                        Скачать 8aƏdəbiyyat.xlsx
-                    </a>
-                </div>
-            </div>
-        </section>
-
         <!-- Projects Section -->
         <section id="projects" class="projects-section">
             <h2 class="section-title">My Projects</h2>
@@ -280,17 +275,17 @@
                 <div class="about-text fade-in">
                     <h2>About Me</h2>
                     <p>
-                        I'm a passionate developer with expertise in modern web technologies. 
-                        With a strong foundation in HTML, CSS, and JavaScript, I create beautiful and 
+                        I'm a passionate developer with expertise in modern web technologies.
+                        With a strong foundation in HTML, CSS, and JavaScript, I create beautiful and
                         functional web experiences.
                     </p>
                     <p>
-                        My journey in programming has taught me the importance of clean code, 
-                        user-centered design, and continuous learning. I'm always excited to tackle 
+                        My journey in programming has taught me the importance of clean code,
+                        user-centered design, and continuous learning. I'm always excited to tackle
                         new challenges and push the boundaries of what's possible on the web.
                     </p>
                     <p>
-                        When I'm not coding, you can find me exploring new technologies, 
+                        When I'm not coding, you can find me exploring new technologies,
                         contributing to open-source projects, or sharing knowledge with the community.
                     </p>
                 </div>
@@ -370,7 +365,7 @@
                 aiResponseText.textContent = randomTip;
                 aiResponse.style.display = 'block';
                 aiInput.value = '';
-                
+
                 // Auto-hide after 5 seconds
                 setTimeout(() => {
                     aiResponse.style.display = 'none';
@@ -384,154 +379,6 @@
             }
         });
 
-        // ===== GAME =====
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
-        const game = {
-            player: { x: canvas.width / 2, y: canvas.height - 30, width: 20, height: 20, speed: 5 },
-            stars: [],
-            bugs: [],
-            score: 0,
-            lives: 3,
-            gameRunning: true,
-            mouseX: canvas.width / 2,
-            mouseY: canvas.height - 30
-        };
-
-        // Mouse tracking
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            game.mouseX = e.clientX - rect.left;
-            game.mouseY = e.clientY - rect.top;
-        });
-
-        function createStar() {
-            return {
-                x: Math.random() * (canvas.width - 15),
-                y: Math.random() * (canvas.height / 2),
-                width: 15,
-                height: 15,
-                speed: 2
-            };
-        }
-
-        function createBug() {
-            return {
-                x: Math.random() * (canvas.width - 15),
-                y: Math.random() * (canvas.height / 2),
-                width: 15,
-                height: 15,
-                speed: 3 + Math.random() * 2,
-                dirX: Math.random() > 0.5 ? 1 : -1
-            };
-        }
-
-        // Initialize game
-        for (let i = 0; i < 3; i++) {
-            game.stars.push(createStar());
-            game.bugs.push(createBug());
-        }
-
-        function updateGame() {
-            if (!game.gameRunning) return;
-
-            // Move player towards mouse
-            if (game.mouseX > game.player.x) {
-                game.player.x += game.player.speed;
-            } else if (game.mouseX < game.player.x) {
-                game.player.x -= game.player.speed;
-            }
-
-            if (game.mouseY > game.player.y) {
-                game.player.y += game.player.speed;
-            } else if (game.mouseY < game.player.y) {
-                game.player.y -= game.player.speed;
-            }
-
-            // Keep player in bounds
-            game.player.x = Math.max(0, Math.min(canvas.width - game.player.width, game.player.x));
-            game.player.y = Math.max(0, Math.min(canvas.height - game.player.height, game.player.y));
-
-            // Update stars
-            game.stars.forEach((star, index) => {
-                star.y += star.speed;
-                if (star.y > canvas.height) {
-                    game.stars[index] = createStar();
-                }
-
-                // Check collision with player
-                if (checkCollision(game.player, star)) {
-                    game.score += 10;
-                    game.stars[index] = createStar();
-                    document.getElementById('score').textContent = game.score;
-                }
-            });
-
-            // Update bugs
-            game.bugs.forEach((bug, index) => {
-                bug.x += bug.speed * bug.dirX;
-                bug.y += Math.sin(bug.x / 50) * 1;
-
-                if (bug.x < 0 || bug.x > canvas.width) {
-                    bug.dirX *= -1;
-                }
-
-                // Check collision with player
-                if (checkCollision(game.player, bug)) {
-                    game.lives--;
-                    document.getElementById('lives').textContent = game.lives;
-                    game.bugs[index] = createBug();
-
-                    if (game.lives <= 0) {
-                        game.gameRunning = false;
-                        alert(`Game Over! Final Score: ${game.score}`);
-                        location.reload();
-                    }
-                }
-            });
-        }
-
-        function checkCollision(rect1, rect2) {
-            return rect1.x < rect2.x + rect2.width &&
-                   rect1.x + rect1.width > rect2.x &&
-                   rect1.y < rect2.y + rect2.height &&
-                   rect1.y + rect1.height > rect2.y;
-        }
-
-        function drawGame() {
-            // Clear canvas
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw stars
-            game.stars.forEach(star => {
-                ctx.fillStyle = '#fbbf24';
-                ctx.font = 'bold 20px Arial';
-                ctx.fillText('⭐', star.x, star.y);
-            });
-
-            // Draw bugs
-            game.bugs.forEach(bug => {
-                ctx.fillStyle = '#ef4444';
-                ctx.font = 'bold 20px Arial';
-                ctx.fillText('🐛', bug.x, bug.y);
-            });
-
-            // Draw player
-            ctx.fillStyle = '#60a5fa';
-            ctx.font = 'bold 25px Arial';
-            ctx.fillText('🎮', game.player.x, game.player.y + 15);
-        }
-
-        function gameLoop() {
-            updateGame();
-            drawGame();
-            requestAnimationFrame(gameLoop);
-        }
-
-        gameLoop();
-
         // ===== PARTICLES =====
         function createParticles() {
             const container = document.getElementById('particlesContainer');
@@ -540,19 +387,19 @@
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
-                
+
                 const size = Math.random() * 4 + 2;
                 const duration = Math.random() * 10 + 15;
                 const delay = Math.random() * 5;
                 const xOffset = Math.random() * 100 - 50;
-                
+
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = '-10px';
                 particle.style.setProperty('--tx', xOffset + 'px');
                 particle.style.animation = `fall ${duration}s linear ${delay}s infinite`;
-                
+
                 container.appendChild(particle);
             }
         }
