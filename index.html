@@ -155,7 +155,17 @@
         .project-note { color: var(--teal); font: 500 .74rem var(--mono); line-height: 1.55; margin: 0 0 1rem; }
         .project-content strong { color: var(--coral-dark); font-weight: 600; }
         .project-links { margin-top: auto; }
+        /* Project cards reveal one after another as they enter the viewport. */
+        .project-card.fade-in { opacity: 0; transform: translateY(34px) rotate(.6deg); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.2,1); will-change: opacity, transform; }
+        .project-card.fade-in:nth-child(2) { transition-delay: .09s; }
+        .project-card.fade-in:nth-child(3) { transition-delay: .18s; }
+        .project-card.fade-in:nth-child(4) { transition-delay: .27s; }
+        .project-card.fade-in.visible { opacity: 1; transform: translateY(0) rotate(0); }
+        .project-card.fade-in.visible:hover { transform: translateY(-4px) rotate(-.35deg); }
         @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; gap: 1.25rem; } .project-card { box-shadow: 4px 4px 0 var(--paper-deep); } }
+        @media (prefers-reduced-motion: reduce) {
+            .project-card.fade-in, .project-card.fade-in:nth-child(2), .project-card.fade-in:nth-child(3), .project-card.fade-in:nth-child(4) { opacity: 1; transform: none; transition: none; }
+        }
 </style>
 </head>
 <body>
