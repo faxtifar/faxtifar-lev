@@ -142,6 +142,20 @@
         .justify-center { justify-content: center; }
         .gap-6 { gap: 1.5rem; }
         .flex-wrap { flex-wrap: wrap; }
+
+        .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; border-top: 0; }
+        .project-card { min-width: 0; background: rgba(255,255,255,.18); border: 1px solid var(--ink); padding: 1rem; display: flex; flex-direction: column; gap: 1.2rem; box-shadow: 6px 6px 0 var(--paper-deep); }
+        .project-card:hover { background: var(--paper-deep); transform: translateY(-4px) rotate(-.35deg); }
+        .project-image { width: 100%; height: 150px; flex-shrink: 0; background: var(--teal); font-size: clamp(1.35rem, 3vw, 2.2rem); letter-spacing: -.08em; }
+        .project-image::after { content: "PERSONAL BUILD"; }
+        .project-content { padding: 0; min-width: 0; }
+        .project-features { list-style: none; color: var(--muted); font-size: .82rem; line-height: 1.55; margin: 0 0 1rem; padding: 0; }
+        .project-features li { margin-bottom: .45rem; }
+        .project-features li::before { content: "+"; color: var(--coral); font: 500 .8rem var(--mono); margin-right: .45rem; }
+        .project-note { color: var(--teal); font: 500 .74rem var(--mono); line-height: 1.55; margin: 0 0 1rem; }
+        .project-content strong { color: var(--coral-dark); font-weight: 600; }
+        .project-links { margin-top: auto; }
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; gap: 1.25rem; } .project-card { box-shadow: 4px 4px 0 var(--paper-deep); } }
 </style>
 </head>
 <body>
@@ -255,34 +269,114 @@
         <section id="projects" class="projects-section">
             <h2 class="section-title">My Projects</h2>
             <div class="projects-grid">
-                <!-- Grow a Garden Project -->
+                <!-- Akatsuki Store -->
                 <div class="project-card fade-in">
                     <div class="project-image">
-                        GROW
+                        AKATSUKI
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Grow a Garden</h3>
+                        <h3 class="project-title">Akatsuki Store</h3>
                         <p class="project-description">
-                            A record-breaking Roblox game that became a global phenomenon. Plant, grow, and harvest crops in the most relaxing game on Roblox with 16M+ concurrent players.
+                            Здравствуйте! Сделал сайт для вашего магазина и собрал основу, которую можно развивать дальше.
                         </p>
-                        <div class="project-stats">
-                            <div class="project-stat">
-                                <i class="fas fa-users"></i>
-                                16M+ Players
-                            </div>
-                            <div class="project-stat">
-                                <i class="fas fa-star"></i>
-                                #1 Trending
-                            </div>
-                        </div>
+                        <ul class="project-features">
+                            <li>Добавил экран загрузки.</li>
+                            <li>Открытые ссылки на социальные сети канала.</li>
+                            <li>Информация о магазине и его расположении.</li>
+                            <li>Недоработанный раздел предметов как основа для продолжения.</li>
+                        </ul>
+                        <p class="project-note">Если сайт понравится, его можно продолжить и реализовать полностью.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Roblox</span>
-                            <span class="project-tag">Game Dev</span>
-                            <span class="project-tag">Lua</span>
+                            <span class="project-tag">Store</span>
+                            <span class="project-tag">Loading screen</span>
+                            <span class="project-tag">Social links</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://faxtifar.github.io/grow/" class="project-link" target="_blank">View Project</a>
-                            <a href="https://faxtifar.github.io/grow/" class="project-link secondary" target="_blank">Learn More</a>
+                            <a href="https://faxtifar.github.io/Akatsuki_site/" class="project-link" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evi Signal -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        EVI
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Evi Signal</h3>
+                        <p class="project-description">
+                            Персональный сайт с красно-чёрной палитрой, кремовым фоном и живой рукописной подачей.
+                        </p>
+                        <ul class="project-features">
+                            <li>Неровные отступы и рукописные подписи.</li>
+                            <li>Раздел игровых заметок с тремя тематическими карточками.</li>
+                            <li>Единственная ссылка на TikTok Эви: <strong>@ly9na6</strong>.</li>
+                            <li>Эффекты наведения для интерактивных элементов.</li>
+                        </ul>
+                        <p class="project-note">Сайт можно расширить новыми разделами и материалами.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Personal site</span>
+                            <span class="project-tag">Game notes</span>
+                            <span class="project-tag">Hover effects</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://faxtifar.github.io/Evi_site/" class="project-link" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listochka -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        LISTOCHKA
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Listochka</h3>
+                        <p class="project-description">
+                            Нежный профильный сайт в молочно-белой, розовой и серо-розовой палитре.
+                        </p>
+                        <ul class="project-features">
+                            <li>Рукописные подписи и мягкая визуальная подача.</li>
+                            <li>Статистика профиля: 815 подписчиков, 80,7 тыс. лайков и 5 подписок.</li>
+                            <li>Кнопка перехода в TikTok.</li>
+                            <li>Разделы «О себе», «Дневник» и «Эфир».</li>
+                            <li>Адаптация для компьютеров, телефонов и планшетов.</li>
+                            <li>Оптимизированные локальные изображения.</li>
+                        </ul>
+                        <div class="project-tags">
+                            <span class="project-tag">Profile</span>
+                            <span class="project-tag">Responsive</span>
+                            <span class="project-tag">Optimized images</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://faxtifar.github.io/Listochka_site/" class="project-link" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fliksi -->
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        FLIKSI
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Fliksi</h3>
+                        <p class="project-description">
+                            Готовый персональный сайт с лёгкой атмосферой и заметными интерактивными деталями.
+                        </p>
+                        <ul class="project-features">
+                            <li>Экран загрузки.</li>
+                            <li>Переходы на Telegram и TikTok.</li>
+                            <li>Падающие коты, работающие как снег.</li>
+                        </ul>
+                        <p class="project-note">Проект можно дополнить новыми блоками и контентом.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Loading screen</span>
+                            <span class="project-tag">Social links</span>
+                            <span class="project-tag">Animation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://faxtifar.github.io/Fliksi_site/" class="project-link" target="_blank" rel="noopener noreferrer">Открыть сайт</a>
                         </div>
                     </div>
                 </div>
