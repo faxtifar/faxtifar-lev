@@ -36,11 +36,17 @@
         .burger-menu.active .burger-line:nth-child(1) { transform:rotate(45deg) translate(4px,4px); } .burger-menu.active .burger-line:nth-child(2) { opacity:0; } .burger-menu.active .burger-line:nth-child(3) { transform:rotate(-45deg) translate(4px,-4px); }
         .side-menu { position:fixed; right:-400px; top:0; width:350px; height:100vh; z-index:150; background:var(--ink); color:var(--paper); border-left:4px solid var(--coral); transition:right .32s cubic-bezier(.2,.75,.2,1); overflow-y:auto; padding:2rem 1.5rem; }
         .side-menu.active { right:0; }
+        .menu-backdrop { position:fixed; inset:0; z-index:140; background:rgba(29,27,25,.42); opacity:0; visibility:hidden; transition:opacity .28s ease,visibility .28s ease; }
+        .menu-backdrop.active { opacity:1; visibility:visible; }
+        body.menu-open { overflow:hidden; }
         .menu-close { position:absolute; top:1.25rem; right:1.25rem; background:none; border:0; color:var(--paper); font-size:1.3rem; cursor:pointer; }
         .menu-close:hover { color:var(--coral); transform:rotate(8deg); }
         .menu-links { display:flex; flex-direction:column; gap:.2rem; margin-top:3.5rem; margin-bottom:2rem; }
         .menu-links a { color:#b8b0a5; text-decoration:none; padding:.7rem .8rem; border-bottom:1px solid rgba(242,238,230,.12); font:500 .78rem var(--mono); transition:all .2s ease; display:block; }
         .menu-links a:hover { color:var(--paper)!important; border-color:var(--coral); padding-left:1.1rem; background:rgba(232,93,69,.1); }
+        @keyframes menuLinkReveal { from { opacity:0; transform:translateX(18px); } to { opacity:1; transform:translateX(0); } }
+        .side-menu.active .menu-links a { animation:menuLinkReveal .35s cubic-bezier(.2,.75,.2,1) both; }
+        .side-menu.active .menu-links a:nth-child(1) { animation-delay:.08s; } .side-menu.active .menu-links a:nth-child(2) { animation-delay:.13s; } .side-menu.active .menu-links a:nth-child(3) { animation-delay:.18s; } .side-menu.active .menu-links a:nth-child(4) { animation-delay:.23s; } .side-menu.active .menu-links a:nth-child(5) { animation-delay:.28s; } .side-menu.active .menu-links a:nth-child(6) { animation-delay:.33s; }
         .ai-assistant { background:var(--paper); color:var(--ink); border:1px solid rgba(242,238,230,.25); border-radius:0; padding:1.25rem; margin-bottom:1.5rem; }
         .ai-title { color:var(--coral); font:500 .78rem var(--mono); text-transform:uppercase; margin-bottom:.9rem; display:flex; align-items:center; gap:.5rem; }
         .ai-input-group { display:flex; gap:.5rem; margin-bottom:1rem; } .ai-input { flex:1; background:var(--ink-soft); border:1px solid #575047; color:var(--paper); padding:.55rem .7rem; border-radius:0; font-size:.82rem; } .ai-input:focus{outline:none;border-color:var(--coral);}
@@ -157,9 +163,12 @@
         .flex-wrap { flex-wrap: wrap; }
 
         .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; border-top: 0; }
-        .project-card { min-width: 0; background: rgba(255,255,255,.18); border: 1px solid var(--ink); padding: 1rem; display: flex; flex-direction: column; gap: 1.2rem; box-shadow: 6px 6px 0 var(--paper-deep); }
-        .project-card:hover { background: var(--paper-deep); transform: translateY(-4px) rotate(-.35deg); }
-        .project-image { width: 100%; height: 150px; flex-shrink: 0; background: var(--teal); font-size: clamp(1.35rem, 3vw, 2.2rem); letter-spacing: -.08em; }
+        .project-card { min-width: 0; position:relative; background: rgba(255,255,255,.18); border: 1px solid var(--ink); padding: 1rem; display: flex; flex-direction: column; gap: 1.2rem; box-shadow: 6px 6px 0 var(--paper-deep); transition:background .25s ease,border-color .25s ease,box-shadow .25s ease; }
+        .project-card:hover { background: var(--paper-deep); border-color:var(--coral); box-shadow:9px 9px 0 var(--coral); transform: translateY(-4px) rotate(-.35deg); }
+        .project-card::after { content:"↗"; position:absolute; top:.65rem; right:.75rem; color:var(--coral); font:500 1.35rem var(--mono); opacity:0; transform:translate(-5px,5px); transition:opacity .25s ease,transform .25s ease; }
+        .project-card:hover::after { opacity:1; transform:translate(0,0); }
+        .project-image { width: 100%; height: 150px; flex-shrink: 0; background: var(--teal); font-size: clamp(1.35rem, 3vw, 2.2rem); letter-spacing: -.08em; transition:transform .3s ease,filter .3s ease; }
+        .project-card:hover .project-image { transform:scale(.985) rotate(1deg); filter:saturate(1.18) contrast(1.04); }
         .project-image::after { content: "PERSONAL BUILD"; }
         .project-content { padding: 0; min-width: 0; }
         .project-features { list-style: none; color: var(--muted); font-size: .82rem; line-height: 1.55; margin: 0 0 1rem; padding: 0; }
@@ -178,6 +187,14 @@
         @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; gap: 1.25rem; } .project-card { box-shadow: 4px 4px 0 var(--paper-deep); } }
         @media (prefers-reduced-motion: reduce) {
             .project-card.fade-in, .project-card.fade-in:nth-child(2), .project-card.fade-in:nth-child(3), .project-card.fade-in:nth-child(4) { opacity: 1; transform: none; transition: none; }
+            .side-menu.active .menu-links a { animation:none; }
+            .menu-backdrop, .project-card, .project-card::after, .project-image { transition:none; }
+        }
+        @media (pointer:fine) and (prefers-reduced-motion:no-preference) {
+            html.custom-cursor-enabled, html.custom-cursor-enabled body, html.custom-cursor-enabled a, html.custom-cursor-enabled button { cursor:none; }
+            .custom-cursor { position:fixed; left:0; top:0; z-index:400; width:12px; height:12px; border:1px solid var(--coral); border-radius:50%; pointer-events:none; opacity:0; transform:translate(-50%,-50%); transition:width .2s ease,height .2s ease,background .2s ease,border-color .2s ease,opacity .2s ease; }
+            .custom-cursor.is-visible { opacity:1; }
+            .custom-cursor.is-hovering { width:34px; height:34px; background:rgba(232,93,69,.14); border-color:var(--coral-dark); }
         }
 </style>
 </head>
@@ -186,13 +203,14 @@
     <div class="particles-container" id="particlesContainer"></div>
 
     <!-- Burger Menu Button -->
-    <button class="burger-menu" id="burgerMenu">
+    <button class="burger-menu" id="burgerMenu" aria-label="Open menu" aria-expanded="false">
         <div class="burger-line"></div>
         <div class="burger-line"></div>
         <div class="burger-line"></div>
     </button>
 
     <!-- Side Menu -->
+    <button class="menu-backdrop" id="menuBackdrop" aria-label="Close menu"></button>
     <div class="side-menu" id="sideMenu">
         <button class="menu-close" id="menuClose">
             <i class="fas fa-times"></i>
@@ -223,6 +241,7 @@
             </div>
         </div>
     </div>
+    <div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
 
     <!-- Content -->
     <div class="content">
@@ -457,22 +476,32 @@
         const burgerMenu = document.getElementById('burgerMenu');
         const sideMenu = document.getElementById('sideMenu');
         const menuClose = document.getElementById('menuClose');
+        const menuBackdrop = document.getElementById('menuBackdrop');
+
+        const setMenuState = (isOpen) => {
+            burgerMenu.classList.toggle('active', isOpen);
+            sideMenu.classList.toggle('active', isOpen);
+            menuBackdrop.classList.toggle('active', isOpen);
+            burgerMenu.setAttribute('aria-expanded', String(isOpen));
+            document.body.classList.toggle('menu-open', isOpen);
+        };
 
         burgerMenu.addEventListener('click', () => {
-            burgerMenu.classList.toggle('active');
-            sideMenu.classList.toggle('active');
+            setMenuState(!sideMenu.classList.contains('active'));
         });
 
         menuClose.addEventListener('click', () => {
-            burgerMenu.classList.remove('active');
-            sideMenu.classList.remove('active');
+            setMenuState(false);
+        });
+
+        menuBackdrop.addEventListener('click', () => {
+            setMenuState(false);
         });
 
         // Close menu when clicking on a link
         document.querySelectorAll('.menu-links a').forEach(link => {
             link.addEventListener('click', () => {
-                burgerMenu.classList.remove('active');
-                sideMenu.classList.remove('active');
+                setMenuState(false);
             });
         });
 
@@ -558,6 +587,22 @@
         document.querySelectorAll('.fade-in').forEach(el => {
             observer.observe(el);
         });
+
+        // ===== DESKTOP CUSTOM CURSOR =====
+        (() => {
+            const cursor = document.getElementById('customCursor');
+            const canUseCursor = window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!cursor || !canUseCursor) return;
+
+            document.documentElement.classList.add('custom-cursor-enabled');
+            window.addEventListener('mousemove', (event) => {
+                cursor.style.left = `${event.clientX}px`;
+                cursor.style.top = `${event.clientY}px`;
+                cursor.classList.add('is-visible');
+                cursor.classList.toggle('is-hovering', Boolean(event.target.closest('a, button, .project-card, .skill-card')));
+            }, { passive: true });
+            document.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'));
+        })();
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
