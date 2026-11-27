@@ -584,9 +584,22 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => {
+        document.querySelectorAll('.fade-in:not(.footer-reveal)').forEach(el => {
             observer.observe(el);
         });
+
+        const footerReveal = document.querySelector('footer.footer-reveal');
+        if (footerReveal) {
+            const footerObserver = new IntersectionObserver((entries, currentObserver) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        currentObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.01, rootMargin: '0px' });
+            footerObserver.observe(footerReveal);
+        }
 
         // ===== DESKTOP CUSTOM CURSOR =====
         (() => {
